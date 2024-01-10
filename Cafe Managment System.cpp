@@ -4,6 +4,8 @@
 
 using namespace std;
 
+
+
 class Admin;
 
 class Admin {
@@ -253,8 +255,8 @@ public:
     }
     }  
     
-    void staffMenu(vector<Admin*>& staffList, vector<Admin*>& customerList);
-    void customerMenu(vector<Admin*>& customerList, vector<Admin*>& staffList);
+    void staffMenu(vector<Admin*>& customerList);
+    void customerMenu();
     void menu(vector<Admin*>& staffList, vector<Admin*>& customerList);
 };
 
@@ -327,7 +329,7 @@ void Admin::menu(vector<Admin*>& staffList, vector<Admin*>& customerList) {
     } while (choice != 13);
 }
 
-void Admin::staffMenu(vector<Admin*>& staffList, vector<Admin*>& customerList) {
+void Admin::staffMenu( vector<Admin*>& customerList) {
     int choice;
     do {
         cout << "\nStaff Menu\n";
@@ -337,8 +339,7 @@ void Admin::staffMenu(vector<Admin*>& staffList, vector<Admin*>& customerList) {
         cout << "4. Modify Customer Username\n";
         cout << "5. Modify Customer Password\n";
         cout << "6. View Services\n";
-        cout << "7. Change Password\n";
-        cout << "8. Logout\n";
+        cout << "7. Logout\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -362,24 +363,20 @@ void Admin::staffMenu(vector<Admin*>& staffList, vector<Admin*>& customerList) {
                 viewServices();
                 break;
             case 7:
-                 changePassword();
-                break;
-            case 8:
                 cout << "Logging out...\n";
                 break;
             default:
                 cout << "Invalid choice. Please try again.\n";
         }
-    } while (choice != 8);
+    } while (choice != 7);
 }
 
-void Admin::customerMenu(vector<Admin*>& customerList, vector<Admin*>& staffList) {
+void Admin::customerMenu() {
     int choice;
     do {
         cout << "\nCustomer Menu\n";
         cout << "1. View Services\n";
-        cout << "2. Change Password\n";
-        cout << "3. Logout\n";
+        cout << "2. Logout\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -388,15 +385,12 @@ void Admin::customerMenu(vector<Admin*>& customerList, vector<Admin*>& staffList
                 viewServices();
                 break;
             case 2:
-                 changePassword();
-                break;
-            case 3:
                 cout << "Logging out...\n";
                 break;
             default:
                 cout << "Invalid choice. Please try again.\n";
         }
-    } while (choice != 3);
+    } while (choice != 2);
 }
 
 int main() {
@@ -443,7 +437,7 @@ int main() {
 
                     if (admin.authenticateStaff(username, password, staffList)) {
                         Admin staff;  // Creating an Admin object for staff
-                        staff.staffMenu(staffList, customerList);
+                        staff.staffMenu(customerList);
                     } else {
                         cout << "Invalid username or password. Login failed.\n";
                     }
@@ -459,7 +453,7 @@ int main() {
 
                     if (admin.authenticateCustomer(username, password, customerList)) {
                         Admin customer;  
-                        customer.customerMenu(customerList, staffList);
+                        customer.customerMenu();
                     } else {
                         cout << "Invalid username or password. Login failed.\n";
                     }
