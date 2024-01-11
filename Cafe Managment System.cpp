@@ -16,8 +16,8 @@ public:
     Admin() : username("admin"), password("adminpass") {}
 
     bool authenticateStaff(const string& staffUsername, const string& staffPassword, const vector<Admin*>& staffList) {
-        auto it = find_if(staffList.begin(), staffList.end(),
-                          [staffUsername, staffPassword](const Admin* admin) {
+        auto it = find_if(staffList.begin(), staffList.end(),  // Find the first Staff object in the vector that matches the username and password
+                          [staffUsername, staffPassword](const Admin* admin) { // Lambda expression
                               return admin->username == staffUsername && admin->password == staffPassword;
                           });
 
@@ -40,12 +40,13 @@ public:
         cout << "Enter new staff password: ";
         cin >> newStaff->password;
 
-        staffList.push_back(newStaff);
+        staffList.push_back(newStaff); // Add the new Staff object to the vector
         cout << "New staff added successfully.\n";
     }
 
+
     void removeStaff(vector<Admin*>& staffList) {
-        string username;
+        string username; //ask for username
         cout << "Enter staff username to remove: ";
         cin >> username;
 
@@ -232,7 +233,7 @@ public:
         cout << "Enter new admin password: ";
         cin >> newPassword;
 
-        this->password = newPassword;
+        this->password = newPassword; // Change the password of the Admin object
 
         cout << "Admin password changed successfully.\n";
     }
